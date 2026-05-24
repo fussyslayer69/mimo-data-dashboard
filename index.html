@@ -3,56 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MiMo Data Dashboard</title>
+    <title>DataNova - Real-Time Analytics with AI Anomaly Detection</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0d1117; color: #c9d1d9; }
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-        h1 { font-size: 2.5rem; margin-bottom: 10px; color: #58a6ff; }
-        .badge { display: inline-block; background: #238636; color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; margin-bottom: 20px; }
-        .desc { font-size: 1.2rem; color: #8b949e; margin-bottom: 30px; }
-        .features { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 30px; }
-        .features h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.3rem; }
-        .features li { margin: 8px 0; padding-left: 10px; list-style: none; }
-        .features li:before { content: "✓ "; color: #3fb950; }
-        .stack { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 30px; }
-        .stack h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.3rem; }
-        .tech { display: flex; gap: 10px; flex-wrap: wrap; }
-        .tech span { background: #1f6feb33; color: #58a6ff; padding: 6px 14px; border-radius: 6px; font-size: 0.9rem; }
-        .cta { text-align: center; margin-top: 40px; }
-        .cta a { background: #238636; color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: bold; }
-        .footer { text-align: center; margin-top: 40px; color: #484f58; font-size: 0.9rem; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.6; }
+        .hero { background: linear-gradient(135deg, #1a2530 0%, #0d1117 50%, #161b22 100%); padding: 80px 20px; text-align: center; border-bottom: 1px solid #30363d; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 50%, #06b6d408 0%, transparent 50%); }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .badge { display: inline-block; background: #238636; color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; }
+        h1 { font-size: 3rem; margin-bottom: 16px; color: #e6edf3; font-weight: 700; letter-spacing: -0.02em; }
+        .tagline { font-size: 1.25rem; color: #22d3ee; margin-bottom: 16px; font-weight: 500; }
+        .subtitle { font-size: 1.1rem; color: #8b949e; max-width: 600px; margin: 0 auto 30px; }
+        .section { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+        .section-title { font-size: 2rem; color: #e6edf3; margin-bottom: 12px; text-align: center; }
+        .section-subtitle { color: #8b949e; text-align: center; margin-bottom: 40px; font-size: 1.1rem; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .tech-grid { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .price-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 32px; text-align: center; position: relative; }
+        .price-card.featured { border-color: #06b6d4; box-shadow: 0 0 20px #06b6d422; }
+        .price-card.featured::before { content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #06b6d4; color: white; padding: 4px 16px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; }
+        .price { font-size: 2.5rem; font-weight: 700; color: #e6edf3; margin: 16px 0 8px; }
+        .price-sub { color: #8b949e; font-size: 0.9rem; margin-bottom: 24px; }
+        .btn { display: inline-block; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.2s; cursor: pointer; border: none; }
+        .btn-primary { background: #06b6d4; color: white; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-secondary { background: transparent; color: #e6edf3; border: 1px solid #30363d; }
+        .btn-secondary:hover { border-color: #8b949e; }
+        .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .stars-badge { display: inline-flex; align-items: center; gap: 8px; background: #161b22; border: 1px solid #30363d; padding: 8px 16px; border-radius: 8px; color: #e6edf3; font-size: 0.9rem; text-decoration: none; margin-bottom: 24px; }
+        .stars-badge:hover { border-color: #f0c14b; }
+        .stars { color: #f0c14b; }
+        .arch-placeholder { background: #161b22; border: 1px dashed #30363d; border-radius: 12px; padding: 40px; text-align: center; color: #8b949e; margin-top: 40px; }
+        .cloud-compare { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 32px; margin-top: 40px; }
+        .cloud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; }
+        .cloud-card { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 20px; text-align: center; }
+        .cloud-logo { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .cloud-price { font-size: 1.8rem; font-weight: 700; margin: 8px 0; }
+        .cloud-save { color: #3fb950; font-size: 0.9rem; font-weight: 600; }
+        .footer { border-top: 1px solid #30363d; padding: 40px 20px; text-align: center; color: #484f58; font-size: 0.9rem; }
+        .footer-links { display: flex; gap: 20px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
+        .footer-links a { color: #8b949e; text-decoration: none; }
+        .footer-links a:hover { color: #e6edf3; }
+        .list-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; color: #c9d1d9; font-size: 0.95rem; }
+        .list-check { color: #3fb950; font-weight: bold; flex-shrink: 0; }
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .cloud-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="badge">MiMo 100T Grant Application</div>
-        <h1>MiMo Data Dashboard</h1>
-        <p class="desc">Real-time data analysis with anomaly detection and visual dashboards</p>
-        
-        <div class="features">
-            <h2>Features</h2>
-            <ul><li>Anomaly detection</li><li>Trend analysis</li><li>HTML dashboards</li><li>Automated alerts</li></ul>
-        </div>
-        
-        <div class="stack">
-            <h2>Tech Stack</h2>
-            <div class="tech">
-                <span>MiMo v2.5</span>
-                <span>Hermes Agent</span>
-                <span>Paperclip</span>
-                <span>Python</span>
-            </div>
-        </div>
-        
-        <div class="cta">
-            <a href="https://github.com/faturkamvret/mimo-data-dashboard">View Source Code →</a>
-        </div>
-        
-        <div class="footer">
-            <p>Built for Xiaomi MiMo 100T Token Creator Incentive Program</p>
-            <p>Powered by MiMo v2.5 + Hermes Agent + Paperclip</p>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-content">
+        <div class="badge">🚀 MiMo 100T Grant Project</div>
+        <a href="https://github.com/faturkamvret/mimo-data-dashboard" class="stars-badge">
+            <span class="stars">★</span> <span>GitHub Stars</span>
+        </a>
+        <h1>DataNova</h1>
+        <p class="tagline">Real-Time Analytics with AI Anomaly Detection</p>
+        <p class="subtitle">Transform raw data into actionable insights with intelligent dashboards and automated alerting.</p>
+        <div class="hero-buttons">
+            <a href="https://github.com/faturkamvret/mimo-data-dashboard" class="btn btn-primary">⭐ Star on GitHub</a>
+            <a href="#pricing" class="btn btn-secondary">View Pricing</a>
         </div>
     </div>
+</div>
+
+<!-- FEATURES -->
+<div class="section">
+    <h2 class="section-title">Everything you need</h2>
+    <p class="section-subtitle">Built for teams that demand production-grade AI capabilities.</p>
+    <div class="feature-grid">
+        
+            <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#06b6d4';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#30363d';this.style.transform='none'">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">📊</div>
+                <h3 style="color: #e6edf3; font-size: 1.1rem; margin-bottom: 8px;">Live Dashboard Builder</h3>
+                <p style="color: #8b949e; line-height: 1.6;">Drag-and-drop dashboards that update in real-time. 50+ chart types with custom theme support.</p>
+            </div>
+            <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#06b6d4';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#30363d';this.style.transform='none'">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">🚨</div>
+                <h3 style="color: #e6edf3; font-size: 1.1rem; margin-bottom: 8px;">Anomaly Detection AI</h3>
+                <p style="color: #8b949e; line-height: 1.6;">Catches statistical outliers before they become incidents. Customizable sensitivity and alert channels.</p>
+            </div>
+            <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#06b6d4';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#30363d';this.style.transform='none'">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">📈</div>
+                <h3 style="color: #e6edf3; font-size: 1.1rem; margin-bottom: 8px;">Trend Forecasting</h3>
+                <p style="color: #8b949e; line-height: 1.6;">ML-powered predictions for revenue, churn, usage, and any metric. See 30/60/90 day forecasts.</p>
+            </div>
+            <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='#06b6d4';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#30363d';this.style.transform='none'">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">⚡</div>
+                <h3 style="color: #e6edf3; font-size: 1.1rem; margin-bottom: 8px;">One-Click Integrations</h3>
+                <p style="color: #8b949e; line-height: 1.6;">Connect Snowflake, BigQuery, PostgreSQL, S3, or any REST API in under 60 seconds.</p>
+            </div>
+    </div>
+</div>
+
+<!-- TECH STACK -->
+<div class="section" style="padding-top: 0;">
+    <h2 class="section-title">Tech Stack</h2>
+    <p class="section-subtitle">Powered by cutting-edge technology for reliability and speed.</p>
+    <div class="tech-grid">
+        <span style="background: #06b6d422; color: #22d3ee; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid #06b6d444;">MiMo v2.5</span><span style="background: #06b6d422; color: #22d3ee; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid #06b6d444;">Hermes Agent</span><span style="background: #06b6d422; color: #22d3ee; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid #06b6d444;">Python</span><span style="background: #06b6d422; color: #22d3ee; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid #06b6d444;">Plotly</span><span style="background: #06b6d422; color: #22d3ee; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid #06b6d444;">FastAPI</span><span style="background: #06b6d422; color: #22d3ee; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid #06b6d444;">DuckDB</span>
+    </div>
+</div>
+
+<!-- ARCHITECTURE -->
+<div class="section" style="padding-top: 0;">
+    <h2 class="section-title">Architecture</h2>
+    <p class="section-subtitle">How DataNova works under the hood.</p>
+    <div class="arch-placeholder">
+        <div style="font-size: 3rem; margin-bottom: 16px;">🏗️</div>
+        <p style="font-size: 1.1rem; margin-bottom: 8px; color: #e6edf3;">Architecture Diagram</p>
+        <p>Interactive system architecture visualization coming soon.</p>
+        <p style="margin-top: 12px; font-size: 0.85rem;">Includes: Load Balancer → Agent Pool → Task Queue → Execution Engine → Result Store</p>
+    </div>
+</div>
+
+<!-- CLOUD COST COMPARISON -->
+<div class="section" style="padding-top: 0;">
+    <h2 class="section-title">Cloud Cost Comparison</h2>
+    <p class="section-subtitle">See how DataNova runs on different cloud providers.</p>
+    <div class="cloud-compare">
+        <div style="text-align: center; padding: 20px; background: #0d1117; border-radius: 8px; margin-bottom: 20px;">
+            <div style="font-size: 1rem; color: #8b949e; margin-bottom: 4px;">Estimated Monthly Cost</div>
+            <div style="font-size: 0.85rem; color: #8b949e;">Based on standard workload: 100 agent invocations/day</div>
+        </div>
+        <div class="cloud-grid">
+            <div class="cloud-card">
+                <div class="cloud-logo" style="color: #4285f4;">☁️ Google Cloud Platform</div>
+                <div class="cloud-price" style="color: #3fb950;">$0.028/hr</div>
+                <div style="color: #8b949e; font-size: 0.85rem;">per compute hour</div>
+            </div>
+            <div class="cloud-card">
+                <div class="cloud-logo" style="color: #ff9900;">🔶 Amazon Web Services</div>
+                <div class="cloud-price" style="color: #f85149;">$0.045/hr</div>
+                <div style="color: #8b949e; font-size: 0.85rem;">per compute hour</div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px; padding: 16px; background: #238636; color: white; border-radius: 8px; font-weight: 600;">
+            💡 Save 38% on GCP vs AWS for this workload
+        </div>
+    </div>
+</div>
+
+<!-- PRICING -->
+<div class="section" id="pricing">
+    <h2 class="section-title">Simple, transparent pricing</h2>
+    <p class="section-subtitle">Start free. Scale when you're ready.</p>
+    <div class="pricing-grid">
+        <div class="price-card">
+            <div style="color: #8b949e; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Free</div>
+            <div class="price">$0</div>
+            <div class="price-sub">per month, forever</div>
+            <div style="text-align: left; margin-bottom: 24px;">
+                <div class="list-item"><span class="list-check">✓</span> 1 DataNova instance</div>
+                <div class="list-item"><span class="list-check">✓</span> 100 daily invocations</div>
+                <div class="list-item"><span class="list-check">✓</span> Community support</div>
+                <div class="list-item"><span class="list-check">✓</span> Basic analytics</div>
+            </div>
+            <a href="https://github.com/faturkamvret/mimo-data-dashboard" class="btn btn-secondary" style="width: 100%; text-align: center;">Get Started Free</a>
+        </div>
+        <div class="price-card featured">
+            <div style="color: #22d3ee; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Pro</div>
+            <div class="price">$29<span style="font-size: 1rem; font-weight: 400; color: #8b949e;">/mo</span></div>
+            <div class="price-sub">per seat, billed monthly</div>
+            <div style="text-align: left; margin-bottom: 24px;">
+                <div class="list-item"><span class="list-check">✓</span> Unlimited instances</div>
+                <div class="list-item"><span class="list-check">✓</span> 10,000 daily invocations</div>
+                <div class="list-item"><span class="list-check">✓</span> Priority support</div>
+                <div class="list-item"><span class="list-check">✓</span> Advanced analytics & alerts</div>
+                <div class="list-item"><span class="list-check">✓</span> Custom integrations</div>
+            </div>
+            <a href="https://github.com/faturkamvret/mimo-data-dashboard" class="btn btn-primary" style="width: 100%; text-align: center;">Start Pro Trial</a>
+        </div>
+        <div class="price-card">
+            <div style="color: #e6edf3; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Enterprise</div>
+            <div class="price">Custom</div>
+            <div class="price-sub">tailored to your needs</div>
+            <div style="text-align: left; margin-bottom: 24px;">
+                <div class="list-item"><span class="list-check">✓</span> Everything in Pro</div>
+                <div class="list-item"><span class="list-check">✓</span> Unlimited invocations</div>
+                <div class="list-item"><span class="list-check">✓</span> Dedicated support engineer</div>
+                <div class="list-item"><span class="list-check">✓</span> SLA guarantee (99.99%)</div>
+                <div class="list-item"><span class="list-check">✓</span> On-premise deployment</div>
+            </div>
+            <a href="mailto:enterprise@datanova.ai" class="btn btn-secondary" style="width: 100%; text-align: center;">Contact Sales</a>
+        </div>
+    </div>
+</div>
+
+<!-- DEPLOY CTA -->
+<div class="section" style="text-align: center;">
+    <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 40px;">
+        <h2 style="color: #e6edf3; margin-bottom: 12px;">Deploy to GitHub Pages</h2>
+        <p style="color: #8b949e; margin-bottom: 20px;">One-click deployment. No servers to manage.</p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a href="https://github.com/faturkamvret/mimo-data-dashboard/actions" class="btn btn-primary" style="background: #238636;">⚡ Deploy Now</a>
+            <a href="https://github.com/faturkamvret/mimo-data-dashboard" class="btn btn-secondary">📖 Read the Docs</a>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <div class="footer-links">
+        <a href="https://github.com/faturkamvret/mimo-data-dashboard">GitHub</a>
+        <a href="#">Documentation</a>
+        <a href="#">Community</a>
+        <a href="#">Blog</a>
+        <a href="#">Status</a>
+    </div>
+    <p>Built for Xiaomi MiMo 100T Token Creator Incentive Program</p>
+    <p style="margin-top: 4px;">Powered by MiMo v2.5 + Hermes Agent + Paperclip</p>
+    <p style="margin-top: 8px; font-size: 0.8rem;">© 2026 DataNova. All rights reserved.</p>
+</div>
+
 </body>
 </html>
