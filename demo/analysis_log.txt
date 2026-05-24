@@ -1,0 +1,20 @@
+[15:47:11] 
+📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊
+[15:47:11]   Data Dashboard: sample_sales_data
+[15:47:11] 📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊
+
+[15:47:11] [Profiler] Generating sample dataset...
+[15:47:11] [Profiler] Dataset: 1000 rows × 8 columns
+[15:47:11] [Profiler] Profiling columns...
+[15:47:11] [Profiler] Data quality: 100.0% complete
+[15:47:11] [Analyzer] Running statistical analysis...
+[15:47:11] [Analyzer] Detected 16 anomalies in revenue data
+[15:47:11] [Analyzer] MiMo v2.5 identified 2 key insights
+[15:47:11] [Analyzer] Analysis complete in 0.03s
+[15:47:11] 
+💡 Key Insights:
+[15:47:11]   • High variability detected (CV: 0.52) — consider segmentation
+[15:47:11]   • 16 anomalies detected — review flagged data points
+[15:47:11] 
+[Dashboard] Generating HTML dashboard...
+[15:47:11] [Dashboard] ✅ Dashboard saved to demo/dashboard.html
